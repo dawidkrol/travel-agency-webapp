@@ -1,0 +1,73 @@
+<div *ngIf="this.authService.isAuthenticated() == true" class="d-flex justify-content-center" style="color: white;" [style.background-color]="reservedTrips > 10 ? 'green' : 'red'">
+    <label style="font-style: italic;">TOTAL RESERVED TRIPS: {{ reservedTrips }}</label>
+</div>
+
+<main>
+
+    <div class="col-lg-2 col-md-3 col-sm-11 mt-2" style="padding: 10px;">
+        <app-filtering></app-filtering>
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">Data provider</h5>
+            <select [ngModel]="this.travelsService.provider" (ngModelChange)="providerChanged($event)" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <ng-container *ngFor="let provider of this.travelsService.avaliableProviders">
+                    <option [value]="provider">{{provider}}</option>
+                </ng-container>
+              </select>
+              </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">Currency</h5>
+            <select [(ngModel)]="this.currencyService.currency" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <ng-container *ngFor="let currency of this.currencyService.getAvaliableCurrencies()">
+                    <option [value]="currency">{{currency}}</option>
+                </ng-container>
+              </select>
+              </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-10 col-md-8 d-flex flex-column justify-content-between">
+    <div class="card-container">
+        <figure *ngFor="let travel of ((travels)
+                                        | rate : filterService.getRatings()
+                                        | country : filterService.getCountries()
+                                        | price: filterService.getMinPrice() : filterService.getMaxPrice()
+                                        | date: filterService.getStartDate() : filterService.getEndDate()
+                                        | paginate: { itemsPerPage: itemsPerPage, currentPage: p }
+                                    )" 
+                                class="main-item shadow m-2" [ngClass]="getClass(travel)">
+            <button *ngIf="this.authService.isAuthenticated() == true && (this.authService.isAdmin() || this.authService.isManager())" class="deleteTravel" (click)="deleteTravel(travel)">X</button>
+            <a routerLink="{{travel.id}}">
+                <img [src]="travel.photoLink" alt="">
+            </a>
+            <section>
+                <section>
+                    <h2>{{travel.name | uppercase}}</h2>
+                    <h3>{{travel.country | uppercase}}</h3>
+                    <label>{{travel.description}}</label>
+                </section>
+                <span></span>
+                <div class="lastSection">
+                    <label>Unit price: {{travel.unitPrice | currency: this.currencyService.getCurrency() }}</label>
+                    <section class="addicional-info">
+                        <p *ngIf="travel.avaliableNumberOfSpots != 0">Avaliable spots: 
+                            <b [style.color]="travel.avaliableNumberOfSpots <= 3 ? 'red' : 'black'">
+                                {{ travel.avaliableNumberOfSpots }}
+                            </b>
+                        </p>
+                        <p *ngIf="travel.avaliableNumberOfSpots == 0">There are no avaliable spots.</p>
+                        <div *ngIf="this.authService.isAuthenticated() == true" class="addDeleteTravelButtons">
+                            <button  (click)="reserveSpot(travel)" [hidden]="travel.avaliableNumberOfSpots === 0">+</button>
+                            <button (click)="cancelReservation(travel)" [hidden]="reservedTrips === 0 || travel.avaliableNumberOfSpots === travel.maximumNumberOfSpots">-</button>
+                        </div>
+                        <app-stars [rate]="rateService.getAvgStarRating(travel)" [canRate]="false" (newRate)="changeRate($event)"></app-stars>
+                    </section>
+                </div>
+            </section>
+        </figure>
+    </div>
+    <pagination-controls class="align-self-center mt-5" (pageChange)="p = $event"></pagination-controls>
+</div>
+</main>

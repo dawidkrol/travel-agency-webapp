@@ -1,0 +1,11 @@
+<div class="d-flex align-items-center">
+    <div class="m-2 h5">
+        <input type="checkbox" [(ngModel)]="reservation.selected" />
+        {{ reservation.trip.name | uppercase }} - {{ reservation.reservedSeats }} seats - {{ reservation.reservedSeats * reservation.trip.unitPrice | currency : this.currencyService.getCurrency() }}
+    </div>
+    <div class="d-flex">
+        <button class="btn btn-primary m-1" (click)="reserveSpot(reservation.trip)" [hidden]="reservation.trip.avaliableNumberOfSpots === 0">+</button>
+        <button class="btn btn-primary m-1" (click)="cancelReservation(reservation.trip)" [hidden]="reservation.reservedSeats === 0 || reservation.trip.avaliableNumberOfSpots === reservation.trip.maximumNumberOfSpots">-</button>
+        <button class="btn btn-primary m-1" (click)="returnReservation()">Return</button>
+    </div>
+</div>

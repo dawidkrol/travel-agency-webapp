@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="card-body">
+      <h3 class="card-title">Filter Tours</h3>
+  
+      <div class="mb-2 filter-group">
+        <label>Locations:</label>
+        <div *ngFor="let location of availableLocations">
+          <input type="checkbox" name="locations" [checked]="selectedLocations.includes(location)" (change)="updateSelectedLocations(location)" [id]="'location_' + location" [value]="location">
+          <label style="margin-left: 7px;" [for]="'location_' + location">{{ location }}</label>
+        </div>
+      </div>
+  
+      <div class="mb-2 filter-group">
+        <label>Price Range:</label>
+        <div class="input-group">
+          <input type="number" class="form-control" [(ngModel)]="priceRange.min" placeholder="Min">
+          <input type="number" class="form-control" [(ngModel)]="priceRange.max" placeholder="Max">
+        </div>
+      </div>
+  
+      <div class="mb-2 filter-group">
+        <label>Date Range:</label>
+        <div class="input-group">
+          <input type="date" class="form-control" [(ngModel)]="selectedDateRange.start">
+          <input type="date" class="form-control" [(ngModel)]="selectedDateRange.end">
+        </div>
+      </div>
+  
+      <div class="mb-2 filter-group" *ngIf="availableRatings.length > 0">
+        <label>Rating:</label>
+        <div *ngFor="let rating of availableRatings">
+          <input type="checkbox" name="locations" [checked]="selectedRatings.includes(rating)" (change)="updateSelectedRatings(rating)" [id]="'rating_' + rating" [value]="rating">
+          <label style="margin-left: 7px;" [for]="'rating_' + rating">{{ rating }} stars</label>
+        </div>
+      </div>
+  
+      <br>
+  
+      <button class="btn btn-primary" (click)="applyFilter()">Apply Filter</button>
+    </div>
+  </div>  

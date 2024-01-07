@@ -1,0 +1,13 @@
+.addDeleteTravelButtons {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.addDeleteTravelButtons button {
+    padding: 0px 8px 0px 8px;
+    font-size: 20px;
+    background-color: lightcoral;
+    color: white;
+    border: 0;
+}

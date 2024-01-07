@@ -1,0 +1,79 @@
+<div class="container mt-3">
+    <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)">
+   
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="travelModel.name" required>
+        <div *ngIf="userForm.controls['name']?.touched && userForm.controls['name']?.invalid" class="text-danger">
+          Name is required.
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" [(ngModel)]="travelModel.description"></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="country">Country</label>
+        <input type="text" class="form-control" id="country" name="country" [(ngModel)]="travelModel.country" required>
+        <div *ngIf="userForm.controls['country']?.touched && userForm.controls['country']?.invalid" class="text-danger">
+            Country is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="startDate">Start date</label>
+        <input type="date" class="form-control" id="startDate" name="startDate" [(ngModel)]="travelModel.startDate" required>
+        <div *ngIf="userForm.controls['startDate']?.touched && userForm.controls['startDate']?.invalid" class="text-danger">
+            Start date is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="endDate">End date</label>
+        <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="travelModel.endDate" required>
+        <div *ngIf="userForm.controls['endDate']?.touched && userForm.controls['endDate']?.invalid" class="text-danger">
+            End date is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="photoLink">Photo link</label>
+        <input type="text" class="form-control" id="photoLink" name="photoLink" [(ngModel)]="travelModel.photoLink" required>
+        <div *ngIf="userForm.controls['photoLink']?.touched && userForm.controls['photoLink']?.invalid" class="text-danger">
+            Photo link is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="maximumNumberOfSpots">Maximum number of spots</label>
+        <input type="number" class="form-control" id="maximumNumberOfSpots" name="maximumNumberOfSpots" [(ngModel)]="travelModel.maximumNumberOfSpots" required min="1">
+        <div *ngIf="userForm.controls['maximumNumberOfSpots']?.touched && userForm.controls['maximumNumberOfSpots']?.invalid" class="text-danger">
+            Maximum number of spots is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="avaliableNumberOfSpots">Avaliable number of spots</label>
+        <input type="number" class="form-control" id="avaliableNumberOfSpots" name="avaliableNumberOfSpots" [(ngModel)]="travelModel.avaliableNumberOfSpots" required min="0" [max]="travelModel.maximumNumberOfSpots">
+        <div *ngIf="userForm.controls['avaliableNumberOfSpots']?.touched && userForm.controls['avaliableNumberOfSpots']?.invalid" class="text-danger">
+            Avaliable number of spots is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="unitPrice">Unit price</label>
+        <input type="number" class="form-control" id="unitPrice" name="unitPrice" [(ngModel)]="travelModel.unitPrice" required min="0">
+        <div *ngIf="userForm.controls['unitPrice']?.touched && userForm.controls['unitPrice']?.invalid" class="text-danger">
+            Unit price is required.
+        </div>
+      </div>
+
+      <div *ngIf="errors.length > 0" class="alert alert-danger mt-3">
+        <p *ngFor="let error of errors">{{ error }}</p>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 mt-3 mb-3">Create travel</button>
+    </form>
+  </div>

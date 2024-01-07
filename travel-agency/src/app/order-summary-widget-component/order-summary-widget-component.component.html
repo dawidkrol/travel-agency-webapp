@@ -1,0 +1,4 @@
+<div>
+    <div>Selected Trips: {{ calculateTotalSeats() }}</div>
+    <div>Total Amount: {{ calculateTotalCost() | currency : currencyService.getCurrency() }}</div>
+</div>

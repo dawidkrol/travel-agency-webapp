@@ -1,0 +1,9 @@
+travel-agency/.angular
+travel-agency/.vscode
+travel-agency/node_modules
+travel-agency/angular-app
+
+travel-agency-backend-server/node_modules
+travel-agency-backend-server/config.env
+travel-agency/src/environments/environment.ts
+travel-agency/src/assets

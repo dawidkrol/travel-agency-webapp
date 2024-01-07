@@ -1,0 +1,22 @@
+.crop {
+     overflow: hidden;
+}
+
+.full-yello-star {
+    position: relative;
+    display: flex;
+}
+
+.black-border-star {
+    position: absolute;
+    left: 0;
+}
+
+.yello-fill-star {
+    color: yellow;
+}
+
+#star-container {
+    display: inline-flex;
+    flex-direction: row;
+}

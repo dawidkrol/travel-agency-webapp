@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between" style="padding-left: 20px; padding-right: 20px;">
+    <a class="navbar-brand" href="#">Travel agency</a>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/treavels">Travels</a>
+        </li>
+        <li class="nav-item"  *ngIf="this.authService.isAuthenticated() == true && (this.authService.isAdmin() || this.authService.isManager())">
+          <a class="nav-link" routerLink="/create">Create travel</a>
+        </li>
+        <li class="nav-item"  *ngIf="this.authService.isAuthenticated() == true">
+            <a class="nav-link" routerLink="/basket">Basket</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" *ngIf="this.authService.isAuthenticated() == false">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="this.authService.isAuthenticated() == false">
+            <a class="nav-link" routerLink="/register">Register</a>
+        </li>
+        <li *ngIf="this.authService.isAuthenticated()" class="nav-item active">
+          <label class="nav-link text-success" >Hi 
+            <ng-container  *ngIf="this.authService.isAdmin()">Admin</ng-container>
+            <ng-container  *ngIf="this.authService.isManager()">Manager</ng-container>
+             {{this.authService.getUsername()}}</label>
+        </li>
+        <li class="nav-item" *ngIf="this.authService.isAuthenticated() == true">
+          <button class="nav-link text-danger" (click)="logout()">Logout</button>
+        </li>
+      </ul>
+    </div>
+    <span class="navbar-text" style="margin-right: 40px;">
+      
+    </span>
+    <span class="navbar-text" *ngIf="this.authService.isAuthenticated() == true">
+        <app-order-summary-widget-component></app-order-summary-widget-component>
+    </span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>

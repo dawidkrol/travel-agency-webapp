@@ -1,0 +1,7 @@
+<div class="p-2">
+  <div *ngFor="let reservation of this.reservations">
+      <app-basket-reservation-detail [reservation]="reservation"></app-basket-reservation-detail>
+    </div>
+  <p>Total Amount: {{ calculateTotal() | currency: null }}</p>
+  <button class="btn btn-outline-secondary" (click)="purchase()">Purchase</button>
+</div>
